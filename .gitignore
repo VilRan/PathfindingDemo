@@ -3,3 +3,6 @@
 ################################################################################
 
 /.vs/PathfindingDemo/v14
+/PathfindingDemo/bin/DesktopGL/x86
+/PathfindingDemo/Content
+/PathfindingDemo/obj/x86
