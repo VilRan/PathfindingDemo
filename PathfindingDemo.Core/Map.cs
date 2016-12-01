@@ -10,7 +10,7 @@ namespace PathfindingDemo
 {
     public class Map
     {
-        public const int TileSize = 16;
+        public const int TileSize = 8;
 
         public readonly PathfindingDemoGame Game;
         Node[,] grid;

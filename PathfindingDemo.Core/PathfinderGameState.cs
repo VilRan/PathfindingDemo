@@ -16,7 +16,8 @@ namespace PathfindingDemo
         Node start;
         Node destination;
         Path path;
-        long time;
+        long time = 0;
+        int slowness = 1;
 
         protected virtual string Name { get; }
 
@@ -30,6 +31,16 @@ namespace PathfindingDemo
         {
             base.Update();
 
+            KeyboardState keyboard = Keyboard.GetState();
+            if (keyboard.IsKeyDown(Keys.Q))
+                slowness = 1;
+            else if (keyboard.IsKeyDown(Keys.W))
+                slowness = 10;
+            else if (keyboard.IsKeyDown(Keys.E))
+                slowness = 100;
+            else if (keyboard.IsKeyDown(Keys.R))
+                slowness = 1000;
+
             MouseState mouse = Mouse.GetState();
             Point point = new Point(mouse.X / Map.TileSize, mouse.Y / Map.TileSize);
             Node node = Map.TryGetNodeAt(point);
@@ -41,7 +52,8 @@ namespace PathfindingDemo
                     if (destination != null)
                     {
                         Stopwatch stopwatch = Stopwatch.StartNew();
-                        path = FindPath(start, destination);
+                        for (int i = 0; i < slowness; i++)
+                            path = FindPath(start, destination);
                         stopwatch.Stop();
                         time = stopwatch.ElapsedMilliseconds;
                     }
@@ -52,7 +64,8 @@ namespace PathfindingDemo
                     if (start != null)
                     {
                         Stopwatch stopwatch = Stopwatch.StartNew();
-                        path = FindPath(start, destination);
+                        for (int i = 0; i < slowness; i++)
+                            path = FindPath(start, destination);
                         stopwatch.Stop();
                         time = stopwatch.ElapsedMilliseconds;
                     }
@@ -96,11 +109,15 @@ namespace PathfindingDemo
                         color = Color.Red * 0.75f;
                     spriteBatch.Draw(texture, destination, color);
                 }
-                spriteBatch.DrawStringWithShadow(font, "Time: " + time + " ms", new Vector2(16, 32));
-                spriteBatch.DrawStringWithShadow(font, "Nodes visited: " + path.Closed.Count, new Vector2(16, 48));
             }
 
             spriteBatch.DrawStringWithShadow(font, Name, new Vector2(16, 16));
+            spriteBatch.DrawStringWithShadow(font, "Time (x" + slowness + "): " + time + " ms", new Vector2(16, 32));
+
+            int nodesVisited = 0;
+            if (path != null)
+                nodesVisited = path.Closed.Count;
+            spriteBatch.DrawStringWithShadow(font, "Nodes visited: " + nodesVisited, new Vector2(16, 48));
         }
 
         protected abstract Path FindPath(Node start, Node destination);
