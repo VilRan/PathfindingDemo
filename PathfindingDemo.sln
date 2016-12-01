@@ -3,18 +3,24 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PathfindingDemo", "PathfindingDemo\PathfindingDemo.csproj", "{1B9596DF-E24D-40A0-8226-1889740BDB2F}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "PathfindingDemo.Core", "PathfindingDemo.Core\PathfindingDemo.Core.shproj", "{9E151759-ECCF-4209-AF56-C07FF56F2C24}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PathfindingDemo.DirectX", "PathfindingDemo.DirectX\PathfindingDemo.DirectX.csproj", "{4EBF4AF6-6056-49D6-B063-A0AF976EDAA3}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		PathfindingDemo.Core\PathfindingDemo.Core.projitems*{4ebf4af6-6056-49d6-b063-a0af976edaa3}*SharedItemsImports = 4
+		PathfindingDemo.Core\PathfindingDemo.Core.projitems*{9e151759-eccf-4209-af56-c07ff56f2c24}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1B9596DF-E24D-40A0-8226-1889740BDB2F}.Debug|x86.ActiveCfg = Debug|x86
-		{1B9596DF-E24D-40A0-8226-1889740BDB2F}.Debug|x86.Build.0 = Debug|x86
-		{1B9596DF-E24D-40A0-8226-1889740BDB2F}.Release|x86.ActiveCfg = Release|x86
-		{1B9596DF-E24D-40A0-8226-1889740BDB2F}.Release|x86.Build.0 = Release|x86
+		{4EBF4AF6-6056-49D6-B063-A0AF976EDAA3}.Debug|x86.ActiveCfg = Debug|x86
+		{4EBF4AF6-6056-49D6-B063-A0AF976EDAA3}.Debug|x86.Build.0 = Debug|x86
+		{4EBF4AF6-6056-49D6-B063-A0AF976EDAA3}.Release|x86.ActiveCfg = Release|x86
+		{4EBF4AF6-6056-49D6-B063-A0AF976EDAA3}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

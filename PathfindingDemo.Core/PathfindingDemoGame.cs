@@ -24,7 +24,7 @@ namespace PathfindingDemo
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-            Content.RootDirectory = "Assets";
+            Content.RootDirectory = "Content";
             Window.IsBorderless = true;
             IsMouseVisible = true;
         }

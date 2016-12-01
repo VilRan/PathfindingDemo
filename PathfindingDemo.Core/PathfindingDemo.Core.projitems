@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>9e151759-eccf-4209-af56-c07ff56f2c24</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>PathfindingDemo.Core</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AStarGameState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AStarOptimizedGameState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BinaryHeap.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DijkstraGameState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DijkstraOptimizedGameState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EditorGameState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GameState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Map.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MapGameState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Node.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Path.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PathfinderGameState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PathfindingDemoGame.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SpriteBatchExtensions.cs" />
+  </ItemGroup>
+</Project>
