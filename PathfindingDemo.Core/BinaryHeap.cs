@@ -48,6 +48,18 @@ namespace PathfindingDemo
             itemCount++;
         }
 
+        public void Reorder(T item)
+        {
+            int position = Array.IndexOf(items, item);
+            int parent = GetParent(position);
+            while (position > 0 && items[position].CompareTo(items[parent]) <= 0)
+            {
+                Swap(position, parent);
+                position = parent;
+                parent = GetParent(position);
+            }
+        }
+
         /// <summary>
         /// Returns the top of the heap without removing it.
         /// </summary>
@@ -59,9 +71,7 @@ namespace PathfindingDemo
 
         /// <summary>
         /// Removes and returns the top of the heap. 
-        /// As long as the items in the heap haven't modified, this is guaranteed to be the minimum item.
-        /// If you do modify the values that affect an items comparisons, call the Sort() method first.
-        /// </summary>
+        /// As long as the items in the heap haven't been modified, this is guaranteed to be the minimum item.
         /// <returns></returns>
         public T Remove()
         {
@@ -103,7 +113,8 @@ namespace PathfindingDemo
         }
 
         /// <summary>
-        /// Using this method is necessary if and only if you modify an item in the heap in a way that affects its comparison with other items.
+        /// Use this method only if you've modified the sort-affecting values of a large number of items in the heap. 
+        /// For individual items, use Reorder.
         /// </summary>
         public void Sort()
         {

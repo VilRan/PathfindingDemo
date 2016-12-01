@@ -141,8 +141,7 @@ namespace PathfindingDemo
                         {
                             neighbor.previous = active;
                             neighbor.pathCost = cost;
-                            open.Remove(neighbor);
-                            open.Add(neighbor);
+                            open.Reorder(neighbor);
                             SortCount++;
                         }
                     }
@@ -264,8 +263,7 @@ namespace PathfindingDemo
                         {
                             neighbor.previous = active;
                             neighbor.pathCost = cost;
-                            open.Remove(neighbor);
-                            open.Add(neighbor);
+                            open.Reorder(neighbor);
                             SortCount++;
                         }
                     }
