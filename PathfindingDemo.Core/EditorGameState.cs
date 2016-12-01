@@ -34,6 +34,8 @@ namespace PathfindingDemo
                 brushSize = 1;
             else if (keyboard.IsKeyDown(Keys.D))
                 brushSize = 2;
+            else if (keyboard.IsKeyDown(Keys.F))
+                brushSize = 3;
 
             MouseState mouse = Mouse.GetState();
             Point point = new Point(mouse.X / Map.TileSize, mouse.Y / Map.TileSize);

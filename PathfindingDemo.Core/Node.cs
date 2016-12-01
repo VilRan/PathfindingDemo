@@ -104,17 +104,9 @@ namespace PathfindingDemo
             List<Node> closed = new List<Node>();
             BinaryHeap<Node> open = new BinaryHeap<Node>();
             open.Add(this);
-            bool isUnsorted = false;
 
             while (open.Count > 0)
             {
-                if (isUnsorted)
-                {
-                    open.Sort();
-                    isUnsorted = false;
-                    SortCount++;
-                }
-
                 Node active = open.Remove();
                 active.status = NodeStatus.Closed;
                 closed.Add(active);
@@ -149,7 +141,9 @@ namespace PathfindingDemo
                         {
                             neighbor.previous = active;
                             neighbor.pathCost = cost;
-                            isUnsorted = true;
+                            open.Remove(neighbor);
+                            open.Add(neighbor);
+                            SortCount++;
                         }
                     }
                 }
@@ -233,16 +227,9 @@ namespace PathfindingDemo
             List<Node> closed = new List<Node>();
             BinaryHeap<Node> open = new BinaryHeap<Node>();
             open.Add(this);
-            bool isUnsorted = false;
 
             while (open.Count > 0)
             {
-                if (isUnsorted)
-                {
-                    open.Sort();
-                    isUnsorted = false;
-                    SortCount++;
-                }
                 Node active = open.Remove();
                 active.status = NodeStatus.Closed;
                 closed.Add(active);
@@ -277,7 +264,9 @@ namespace PathfindingDemo
                         {
                             neighbor.previous = active;
                             neighbor.pathCost = cost;
-                            isUnsorted = true;
+                            open.Remove(neighbor);
+                            open.Add(neighbor);
+                            SortCount++;
                         }
                     }
                 }

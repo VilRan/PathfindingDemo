@@ -65,15 +65,19 @@ namespace PathfindingDemo
         /// <returns></returns>
         public T Remove()
         {
-            if (itemCount == 0)
+            return RemoveAt(0);
+        }
+
+        public T RemoveAt(int position)
+        {
+            if (position >= itemCount)
                 return default(T);
 
-            T item = items[0];
+            T item = items[position];
             itemCount--;
-            items[0] = items[itemCount];
+            items[position] = items[itemCount];
             items[itemCount] = default(T);
-
-            int position = 0;
+            
             while (true)
             {
                 int child = GetSmallerChild(position);
@@ -90,6 +94,12 @@ namespace PathfindingDemo
             }
 
             return item;
+        }
+
+        public void Remove(T item)
+        {
+            int position = Array.IndexOf(items, item);
+            RemoveAt(position);
         }
 
         /// <summary>
