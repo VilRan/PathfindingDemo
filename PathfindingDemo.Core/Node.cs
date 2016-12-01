@@ -11,13 +11,12 @@ namespace PathfindingDemo
         public const double Grass = 1;
         public const double Forest = 10;
         public const double Water = 1000;
-
-        public static int SortCount = 0;
+        
         static int currentPathfinderRun = 0;
 
+        public readonly int X, Y;
         public List<Node> Neighbors = new List<Node>();
         public double Cost = 1;
-        public readonly int X, Y;
 
         NodeStatus status = NodeStatus.Unvisited;
         Node previous = null;
@@ -34,8 +33,7 @@ namespace PathfindingDemo
         public Path FindDijkstraPath(Node destination)
         {
             Path path = new Path();
-
-            SortCount = 0;
+            
             currentPathfinderRun++;
             lastVisit = currentPathfinderRun;
             previous = null;
@@ -95,8 +93,7 @@ namespace PathfindingDemo
         public Path FindDijkstraOptimizedPath(Node destination)
         {
             Path path = new Path();
-
-            SortCount = 0;
+            
             currentPathfinderRun++;
             lastVisit = currentPathfinderRun;
             previous = null;
@@ -142,7 +139,6 @@ namespace PathfindingDemo
                             neighbor.previous = active;
                             neighbor.pathCost = cost;
                             open.Reorder(neighbor);
-                            SortCount++;
                         }
                     }
                 }
@@ -156,8 +152,7 @@ namespace PathfindingDemo
         public Path FindAStarPath(Node destination)
         {
             Path path = new Path();
-
-            SortCount = 0;
+            
             currentPathfinderRun++;
             lastVisit = currentPathfinderRun;
             previous = null;
@@ -217,8 +212,7 @@ namespace PathfindingDemo
         public Path FindAStarOptimizedPath(Node destination)
         {
             Path path = new Path();
-
-            SortCount = 0;
+            
             currentPathfinderRun++;
             lastVisit = currentPathfinderRun;
             previous = null;
@@ -264,7 +258,6 @@ namespace PathfindingDemo
                             neighbor.previous = active;
                             neighbor.pathCost = cost;
                             open.Reorder(neighbor);
-                            SortCount++;
                         }
                     }
                 }

@@ -98,7 +98,6 @@ namespace PathfindingDemo
                 }
                 spriteBatch.DrawStringWithShadow(font, "Time: " + time + " ms", new Vector2(16, 32));
                 spriteBatch.DrawStringWithShadow(font, "Nodes visited: " + path.Closed.Count, new Vector2(16, 48));
-                spriteBatch.DrawStringWithShadow(font, "Heap sorted: " + Node.SortCount + " times", new Vector2(16, 64));
             }
 
             spriteBatch.DrawStringWithShadow(font, Name, new Vector2(16, 16));
