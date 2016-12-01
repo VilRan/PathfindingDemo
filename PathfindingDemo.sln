@@ -7,20 +7,35 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "PathfindingDemo.Core", "Pat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PathfindingDemo.DirectX", "PathfindingDemo.DirectX\PathfindingDemo.DirectX.csproj", "{4EBF4AF6-6056-49D6-B063-A0AF976EDAA3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PathfindingDemo.Raw", "PathfindingDemo.Raw\PathfindingDemo.Raw.csproj", "{5C4F2B52-5BC5-4127-BA89-4386923ADD7E}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		PathfindingDemo.Core\PathfindingDemo.Core.projitems*{4ebf4af6-6056-49d6-b063-a0af976edaa3}*SharedItemsImports = 4
+		PathfindingDemo.Core\PathfindingDemo.Core.projitems*{5c4f2b52-5bc5-4127-ba89-4386923add7e}*SharedItemsImports = 4
 		PathfindingDemo.Core\PathfindingDemo.Core.projitems*{9e151759-eccf-4209-af56-c07ff56f2c24}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4EBF4AF6-6056-49D6-B063-A0AF976EDAA3}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{4EBF4AF6-6056-49D6-B063-A0AF976EDAA3}.Debug|x86.ActiveCfg = Debug|x86
 		{4EBF4AF6-6056-49D6-B063-A0AF976EDAA3}.Debug|x86.Build.0 = Debug|x86
+		{4EBF4AF6-6056-49D6-B063-A0AF976EDAA3}.Release|Any CPU.ActiveCfg = Release|x86
 		{4EBF4AF6-6056-49D6-B063-A0AF976EDAA3}.Release|x86.ActiveCfg = Release|x86
 		{4EBF4AF6-6056-49D6-B063-A0AF976EDAA3}.Release|x86.Build.0 = Release|x86
+		{5C4F2B52-5BC5-4127-BA89-4386923ADD7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C4F2B52-5BC5-4127-BA89-4386923ADD7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C4F2B52-5BC5-4127-BA89-4386923ADD7E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5C4F2B52-5BC5-4127-BA89-4386923ADD7E}.Debug|x86.Build.0 = Debug|Any CPU
+		{5C4F2B52-5BC5-4127-BA89-4386923ADD7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C4F2B52-5BC5-4127-BA89-4386923ADD7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C4F2B52-5BC5-4127-BA89-4386923ADD7E}.Release|x86.ActiveCfg = Release|Any CPU
+		{5C4F2B52-5BC5-4127-BA89-4386923ADD7E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
