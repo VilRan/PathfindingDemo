@@ -12,12 +12,14 @@ namespace PathfindingDemo
     /// If the items are modified while on the heap, manual sorting may be necessary.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class BinaryHeap<T> : IEnumerable<T> where T : IComparable<T>
+    public class BinaryHeap<T> : ICollection<T> where T : IComparable<T>
     {
         T[] items;
         int itemCount = 0;
 
         public int Count { get { return itemCount; } }
+
+        public bool IsReadOnly { get { return false; } }
 
         public BinaryHeap()
         {
@@ -106,10 +108,15 @@ namespace PathfindingDemo
             return item;
         }
 
-        public void Remove(T item)
+        public bool Remove(T item)
         {
             int position = Array.IndexOf(items, item);
-            RemoveAt(position);
+            if (position >= 0 && position < itemCount)
+            {
+                RemoveAt(position);
+                return true;
+            }
+            return false;
         }
 
         /// <summary>
@@ -124,6 +131,21 @@ namespace PathfindingDemo
         public IEnumerator<T> GetEnumerator()
         {
             return ((IEnumerable<T>)items).GetEnumerator();
+        }
+
+        public void Clear()
+        {
+            Resize(0);
+        }
+
+        public bool Contains(T item)
+        {
+            return items.Contains(item);
+        }
+
+        public void CopyTo(T[] array, int arrayIndex)
+        {
+            Array.Copy(items, 0, array, arrayIndex, itemCount);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
