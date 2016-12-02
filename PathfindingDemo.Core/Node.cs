@@ -229,10 +229,10 @@ namespace PathfindingDemo
             return deltaX + deltaY - 0.5 * Math.Min(deltaX, deltaY);
         }
 
-        static double computeHeuristic(Node neighbor, Node destination)
+        static double computeHeuristic(Node from, Node to)
         {
-            int deltaX = Math.Abs(destination.X - neighbor.X);
-            int deltaY = Math.Abs(destination.Y - neighbor.Y);
+            int deltaX = Math.Abs(to.X - from.X);
+            int deltaY = Math.Abs(to.Y - from.Y);
             return deltaX + deltaY - 0.5 * Math.Min(deltaX, deltaY);
         }
     }
