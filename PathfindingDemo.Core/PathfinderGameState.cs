@@ -53,6 +53,8 @@ namespace PathfindingDemo
                 drawSpeed = 10f;
             else if (keyboard.IsKeyDown(Keys.C))
                 drawSpeed = 100f;
+            else if (keyboard.IsKeyDown(Keys.V))
+                drawSpeed = 1000f;
 
             MouseState mouse = Mouse.GetState();
             Point point = new Point(mouse.X / Map.TileSize, mouse.Y / Map.TileSize);
