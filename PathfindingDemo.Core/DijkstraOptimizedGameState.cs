@@ -18,7 +18,7 @@ namespace PathfindingDemo
 
         protected override Path FindPath(Node start, Node destination)
         {
-            return start.FindDijkstraOptimizedPath(destination);
+            return start.FindDijkstraPathOptimized(destination);
         }
     }
 }

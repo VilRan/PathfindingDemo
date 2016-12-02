@@ -32,127 +32,18 @@ namespace PathfindingDemo
 
         public Path FindDijkstraPath(Node destination)
         {
-            Path path = new Path();
-            
-            currentPathfinderRun++;
-            lastVisit = currentPathfinderRun;
-            previous = null;
-
-            List<Node> closed = new List<Node>();
-            List<Node> open = new List<Node>();
-            open.Add(this);
-
-            while (open.Count > 0)
-            {
-                open.Sort();
-                Node active = open.First();
-                open.RemoveAt(0);
-                active.status = NodeStatus.Closed;
-                closed.Add(active);
-
-                if (active == destination)
-                {
-                    path = buildPath(destination);
-                    break;
-                }
-
-                foreach (Node neighbor in active.Neighbors)
-                {
-                    if (neighbor.lastVisit != currentPathfinderRun)
-                    {
-                        neighbor.status = NodeStatus.Unvisited;
-                        neighbor.lastVisit = currentPathfinderRun;
-                    }
-
-                    if (neighbor.status != NodeStatus.Closed)
-                    {
-                        double cost = active.pathCost + active.computeCost(neighbor);
-
-                        if (neighbor.status != NodeStatus.Open)
-                        {
-                            neighbor.previous = active;
-                            neighbor.pathCost = cost;
-                            neighbor.heuristic = 0;
-                            neighbor.status = NodeStatus.Open;
-                            open.Add(neighbor);
-                        }
-                        else if (cost < neighbor.pathCost)
-                        {
-                            neighbor.previous = active;
-                            neighbor.pathCost = cost;
-                        }
-                    }
-                }
-            }
-
-            path.Open = open.ToList();
-            path.Closed = closed;
-            return path;
+            return FindShortestPath(destination, (n, d) => { return 0; });
         }
-
-        public Path FindDijkstraOptimizedPath(Node destination)
-        {
-            Path path = new Path();
-            
-            currentPathfinderRun++;
-            lastVisit = currentPathfinderRun;
-            previous = null;
-
-            List<Node> closed = new List<Node>();
-            BinaryHeap<Node> open = new BinaryHeap<Node>();
-            open.Add(this);
-
-            while (open.Count > 0)
-            {
-                Node active = open.Remove();
-                active.status = NodeStatus.Closed;
-                closed.Add(active);
-
-                if (active == destination)
-                {
-                    path = buildPath(destination);
-                    break;
-                }
-
-                foreach (Node neighbor in active.Neighbors)
-                {
-                    if (neighbor.lastVisit != currentPathfinderRun)
-                    {
-                        neighbor.status = NodeStatus.Unvisited;
-                        neighbor.lastVisit = currentPathfinderRun;
-                    }
-
-                    if (neighbor.status != NodeStatus.Closed)
-                    {
-                        double cost = active.pathCost + active.computeCost(neighbor);
-
-                        if (neighbor.status != NodeStatus.Open)
-                        {
-                            neighbor.previous = active;
-                            neighbor.pathCost = cost;
-                            neighbor.heuristic = 0;
-                            neighbor.status = NodeStatus.Open;
-                            open.Add(neighbor);
-                        }
-                        else if (cost < neighbor.pathCost)
-                        {
-                            neighbor.previous = active;
-                            neighbor.pathCost = cost;
-                            open.Reorder(neighbor);
-                        }
-                    }
-                }
-            }
-
-            path.Open = open.ToList();
-            path.Closed = closed;
-            return path;
-        }
-
+        
         public Path FindAStarPath(Node destination)
         {
+            return FindShortestPath(destination, computeHeuristic);
+        }
+
+        public Path FindShortestPath(Node destination, Func<Node, Node, double> heuristicFunction)
+        {
             Path path = new Path();
-            
+
             currentPathfinderRun++;
             lastVisit = currentPathfinderRun;
             previous = null;
@@ -191,7 +82,7 @@ namespace PathfindingDemo
                         {
                             neighbor.previous = active;
                             neighbor.pathCost = cost;
-                            neighbor.heuristic = neighbor.computeHeuristic(destination);
+                            neighbor.heuristic = heuristicFunction(neighbor, destination);
                             neighbor.status = NodeStatus.Open;
                             open.Add(neighbor);
                         }
@@ -209,10 +100,20 @@ namespace PathfindingDemo
             return path;
         }
 
-        public Path FindAStarOptimizedPath(Node destination)
+        public Path FindDijkstraPathOptimized(Node destination)
+        {
+            return FindShortestPathOptimized(destination, (n, d) => { return 0; });
+        }
+
+        public Path FindAStarPathOptimized(Node destination)
+        {
+            return FindShortestPathOptimized(destination, computeHeuristic);
+        }
+
+        public Path FindShortestPathOptimized(Node destination, Func<Node, Node, double> heuristicFunction)
         {
             Path path = new Path();
-            
+
             currentPathfinderRun++;
             lastVisit = currentPathfinderRun;
             previous = null;
@@ -226,12 +127,8 @@ namespace PathfindingDemo
                 Node active = open.Remove();
                 active.status = NodeStatus.Closed;
                 closed.Add(active);
-
                 if (active == destination)
-                {
-                    path = buildPath(destination);
                     break;
-                }
 
                 foreach (Node neighbor in active.Neighbors)
                 {
@@ -249,7 +146,7 @@ namespace PathfindingDemo
                         {
                             neighbor.previous = active;
                             neighbor.pathCost = cost;
-                            neighbor.heuristic = neighbor.computeHeuristic(destination);
+                            neighbor.heuristic = heuristicFunction(neighbor, destination);
                             neighbor.status = NodeStatus.Open;
                             open.Add(neighbor);
                         }
@@ -263,6 +160,7 @@ namespace PathfindingDemo
                 }
             }
 
+            path = buildPath(destination);
             path.Open = open.ToList();
             path.Closed = closed;
             return path;
@@ -328,6 +226,13 @@ namespace PathfindingDemo
         {
             int deltaX = Math.Abs(destination.X - X);
             int deltaY = Math.Abs(destination.Y - Y);
+            return deltaX + deltaY - 0.5 * Math.Min(deltaX, deltaY);
+        }
+
+        static double computeHeuristic(Node from, Node to)
+        {
+            int deltaX = Math.Abs(to.X - from.X);
+            int deltaY = Math.Abs(to.Y - from.Y);
             return deltaX + deltaY - 0.5 * Math.Min(deltaX, deltaY);
         }
     }
