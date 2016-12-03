@@ -2,8 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PathfindingDemo
 {
@@ -18,7 +16,6 @@ namespace PathfindingDemo
         int itemCount = 0;
 
         public int Count { get { return itemCount; } }
-
         public bool IsReadOnly { get { return false; } }
 
         public BinaryHeap()
@@ -37,29 +34,20 @@ namespace PathfindingDemo
                 Resize(items.Length * 2);
 
             items[itemCount] = item;
-
             int position = itemCount;
-            int parent = GetParent(position);
-            while (position > 0 && items[position].CompareTo(items[parent]) <= 0)
-            {
-                Swap(position, parent);
-                position = parent;
-                parent = GetParent(position);
-            }
-
+            HeapifyUp(position);
             itemCount++;
         }
 
-        public void Reorder(T item)
+        /// <summary>
+        /// If the item's comparison value has changed, call this function to reposition it within the heap.
+        /// </summary>
+        /// <param name="item"></param>
+        public void Reposition(T item)
         {
             int position = Array.IndexOf(items, item);
-            int parent = GetParent(position);
-            while (position > 0 && items[position].CompareTo(items[parent]) <= 0)
-            {
-                Swap(position, parent);
-                position = parent;
-                parent = GetParent(position);
-            }
+            HeapifyUp(position);
+            HeapifyDown(position);
         }
 
         /// <summary>
@@ -89,21 +77,8 @@ namespace PathfindingDemo
             itemCount--;
             items[position] = items[itemCount];
             items[itemCount] = default(T);
-            
-            while (true)
-            {
-                int child = GetSmallerChild(position);
-                if (child == position)
-                    break;
 
-                if (items[position].CompareTo(items[child]) > 0)
-                {
-                    Swap(position, child);
-                    position = child;
-                }
-                else
-                    break;
-            }
+            HeapifyDown(position);
 
             return item;
         }
@@ -158,6 +133,35 @@ namespace PathfindingDemo
             T[] newData = new T[newLength];
             Array.Copy(items, newData, items.Length);
             items = newData;
+        }
+
+        void HeapifyUp(int position)
+        {
+            int parent = GetParent(position);
+            while (position > 0 && items[position].CompareTo(items[parent]) <= 0)
+            {
+                Swap(position, parent);
+                position = parent;
+                parent = GetParent(position);
+            }
+        }
+
+        void HeapifyDown(int position)
+        {
+            while (true)
+            {
+                int child = GetSmallerChild(position);
+                if (child == position)
+                    break;
+
+                if (items[position].CompareTo(items[child]) > 0)
+                {
+                    Swap(position, child);
+                    position = child;
+                }
+                else
+                    break;
+            }
         }
 
         void Swap(int positionA, int positionB)

@@ -154,7 +154,7 @@ namespace PathfindingDemo
                         {
                             neighbor.previous = active;
                             neighbor.pathCost = cost;
-                            open.Reorder(neighbor);
+                            open.Reposition(neighbor);
                         }
                     }
                 }
