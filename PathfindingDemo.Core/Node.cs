@@ -37,7 +37,7 @@ namespace PathfindingDemo
         
         public Path FindAStarPath(Node destination)
         {
-            return FindShortestPath(destination, computeHeuristic);
+            return FindShortestPath(destination, getDiagonalDistance);
         }
 
         public Path FindShortestPath(Node destination, Func<Node, Node, double> heuristicFunction)
@@ -59,12 +59,8 @@ namespace PathfindingDemo
                 open.RemoveAt(0);
                 active.status = NodeStatus.Closed;
                 closed.Add(active);
-
                 if (active == destination)
-                {
-                    path = buildPath(destination);
                     break;
-                }
 
                 foreach (Node neighbor in active.Neighbors)
                 {
@@ -76,7 +72,7 @@ namespace PathfindingDemo
 
                     if (neighbor.status != NodeStatus.Closed)
                     {
-                        double cost = active.pathCost + active.computeCost(neighbor);
+                        double cost = active.pathCost + active.getCost(neighbor);
 
                         if (neighbor.status != NodeStatus.Open)
                         {
@@ -95,6 +91,7 @@ namespace PathfindingDemo
                 }
             }
 
+            path = buildPath(destination);
             path.Open = open.ToList();
             path.Closed = closed;
             return path;
@@ -107,7 +104,7 @@ namespace PathfindingDemo
 
         public Path FindAStarPathOptimized(Node destination)
         {
-            return FindShortestPathOptimized(destination, computeHeuristic);
+            return FindShortestPathOptimized(destination, getDiagonalDistance);
         }
 
         public Path FindShortestPathOptimized(Node destination, Func<Node, Node, double> heuristicFunction)
@@ -140,7 +137,7 @@ namespace PathfindingDemo
 
                     if (neighbor.status != NodeStatus.Closed)
                     {
-                        double cost = active.pathCost + active.computeCost(neighbor);
+                        double cost = active.pathCost + active.getCost(neighbor);
 
                         if (neighbor.status == NodeStatus.Unvisited)
                         {
@@ -213,7 +210,7 @@ namespace PathfindingDemo
             return path;
         }
 
-        double computeCost(Node destination)
+        double getCost(Node destination)
         {
             int deltaX = destination.X - X;
             int deltaY = destination.Y - Y;
@@ -222,14 +219,14 @@ namespace PathfindingDemo
             return destination.Cost;
         }
 
-        double computeHeuristic(Node destination)
+        double getDiagonalDistance(Node destination)
         {
             int deltaX = Math.Abs(destination.X - X);
             int deltaY = Math.Abs(destination.Y - Y);
             return deltaX + deltaY - 0.5 * Math.Min(deltaX, deltaY);
         }
 
-        static double computeHeuristic(Node from, Node to)
+        static double getDiagonalDistance(Node from, Node to)
         {
             int deltaX = Math.Abs(to.X - from.X);
             int deltaY = Math.Abs(to.Y - from.Y);
